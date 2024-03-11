@@ -1,6 +1,7 @@
 const initialState = {
     allCountries: [],
-    detail: []
+    detail: [],
+    allActivities: []
   };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,14 +12,33 @@ const rootReducer = (state = initialState, action) => {
           allCountries: action.payload,
         };
       }
+      case 'GET_NAME': {
+        return {
+          ...state,
+          allCountries: action.payload
+        }
+      }
+      
       case 'GET_DETAIL': {
         return{
           ...state,
           detail: action.payload
         }
       }
-      case 'POST_COUNTRY':
+      
+      case 'GET_ACTIVITY': {
         return {
+          ...state,
+          allActivities: action.payload
+
+        }
+      }
+      case 'POST_ACTIVITY':
+        return {
+          ...state,
+        }
+      case 'DELETE_ACTIVITY':
+        return{
           ...state,
         }
 

@@ -40,4 +40,18 @@ const getAllActivities = async ()=>{
     
 }
 
-module.exports= { createActivity, getAllActivities }
+const removeActivity = async (id)=>{
+    try {
+        let removeActivity= await Activity.destroy({
+            where: {
+                id
+            },
+            force:true
+        })
+        return removeActivity
+    } catch (error) {
+        return error
+    }
+}
+
+module.exports= { createActivity, getAllActivities, removeActivity }

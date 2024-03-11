@@ -5,6 +5,7 @@ import Home from './views/Home/Home'
 import Detail from './views/Detail/Detail'
 import Create from './views/Create/Create'
 
+
 import './App.css'
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     
    <div className='App'>
    <Routes>
-    <Route path= '/' Component= {Landing }/>
+    <Route path= '/' Component= {Landing}/>
     <Route path='/countries' Component= {Home} />
     <Route path='/countries/:id' Component= {Detail} />
     <Route path='/create' Component= {Create} />

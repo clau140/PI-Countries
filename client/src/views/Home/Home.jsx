@@ -3,7 +3,8 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 import {getCountries} from '../../redux/actions/actions'
 import Card from '../../components/card/Card'
-
+import SearchBar from "../../components/searchBar/SearchBar";
+import Loader from '../../components/loader/Loader'
 
 export default function Home () {
 
@@ -15,13 +16,17 @@ export default function Home () {
         dispatch(getCountries())
     }, [dispatch]);
 
+    if(!allCountries.length){
+        return <Loader/>
+    }
+
     return (
         <div className="container">
             <div>
                 <button><Link to={'/create'}>Create activity</Link></button>
             </div>
             <div>
-                <h1>Home</h1>
+                <SearchBar/>
             <div>
             <ul className='card_grid'>
             {allCountries?.map((el) => {
