@@ -4,16 +4,13 @@ import './landing.css'
 
 export default function Landing () {
     return (
-        <div className="container">
+        <div className="landingContainer">
             <div>
-                <h1>Discover the world</h1>
-                <div>
-                    <button>
-                        <Link to='/countries'>
-                          Home
-                        </Link>
-
-                    </button>
+                <div className="text" >Descovery the world</div>
+                <div className="buttonDiv">
+                    <Link className="button" to='/countries'></Link>
+                    
+                
                 </div>
             </div>
 
