@@ -10,7 +10,7 @@ router.post('/', async (req, res)=>{
     try {
         const {name, difficulty, duration, seasson } = req.body
 
-        if(!name || !difficulty || !seasson ){
+        if(!name || !difficulty || !duration ){
             res.status(404).send('Must complete all required fields')
         } else{
             const response = await createActivity(req.body)

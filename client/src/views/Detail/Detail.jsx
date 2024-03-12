@@ -35,18 +35,18 @@ export default function Detail () {
                         <h1>{detail.name}</h1>
                     </div>
                     <div>
-                        <h3>{detail.continent}</h3>
-                        <h3>{detail.capital}</h3>
+                        <h3>Continent: {detail.continent}</h3>
+                        <h3>Capital: {detail.capital}</h3>
                         {
-                            detail.subregion? <h3>{detail.subregion}</h3>
+                            detail.subregion? <h3>Subregion: {detail.subregion}</h3>
                             : <div></div>
                         }
                         
                         {
-                            detail.area? <h3>{detail.area}</h3>
+                            detail.area? <h3>Area: {detail.area}</h3>
                             : <div></div>
                         }
-                        <h3>{detail.population}</h3>
+                        <h3>Population: {detail.population}</h3>
                     </div>
                 </div>
                 

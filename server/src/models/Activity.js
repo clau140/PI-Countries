@@ -28,11 +28,12 @@ module.exports = (sequelize) => {
     },
     duration: {
       type: DataTypes.INTEGER,
+      allowNull: false
       
     },
     seasson: {
       type: DataTypes.ENUM("Summer", "Autumn", "Winter", "Spring"),
-      allowNull: false,
+      
     },
     
     

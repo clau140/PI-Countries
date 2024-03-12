@@ -8,6 +8,8 @@ const createActivity = async ({name, difficulty, duration, seasson, countries })
             difficulty,
             duration,
             seasson
+            
+            
         })
 
         let selectCountries = await Country.findAll({

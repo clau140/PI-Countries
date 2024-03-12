@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import { postActivity, getCountries, getActivity } from '../../redux/actions/actions'
-
+import Loader from '../../components/loader/Loader'
 import './create.css';
 
 const validation = (input)=> {
@@ -16,25 +16,13 @@ const validation = (input)=> {
         errors.name = 'Only letters, numbers, hyphens and parentheses are accepted'
     }
 
-    if(!input.difficulty){
-        errors.difficulty= 'required'
-    }
-
-    if(!input.duration){
-        errors.duration= 'required'
-    }
-
-    if(!input.countries){
-        errors.countries= 'required'
-    }
-
-
     return errors;
 }
 
 const Create = () =>{
 
     const dispatch= useDispatch();
+    const navigate= useNavigate()
     const countries= useSelector(state => state.allCountries).sort((a, b)=>{
         if(a.name > b.name){
             return 1
@@ -44,9 +32,11 @@ const Create = () =>{
         }
         return 0
     })
-    
 
-    const [errors, setErrors]= useState({})
+    const listActivities = useSelector((state) => state.allActivities)
+    
+    const [carga, setCarga]= useState(true)
+    
     const [input, setInput]= useState({
         name: '',
         difficulty: '',
@@ -54,15 +44,17 @@ const Create = () =>{
         seasson: '',
         countries: []
     })
+    const [errors, setErrors]= useState({})
 
     useEffect(()=>{
-        dispatch(getCountries())
-    }, [dispatch])
+        dispatch(getCountries()).then(()=> setCarga(false))
+        dispatch(getActivity());
+    }, [dispatch]);
 
-    useEffect(()=>{
+  /*  useEffect(()=>{
         dispatch(getActivity())
     }, [dispatch])
-
+*/
     function handleChange(e){
         setInput({
             ... input,
@@ -75,50 +67,95 @@ const Create = () =>{
 
     }
 
+    function handleSelectDifficulty(e){
+        setInput({
+            ...input,
+            difficulty: e.target.value
+        })
+    }
+
+    function handleSelectDuration(e){
+        setInput({
+            ...input,
+            duration: e.target.value
+        })
+    }
+
+    function handleSelectSeasson(e){
+        setInput({
+            ...input,
+            seasson: e.target.value
+        })
+    }
+
     function handleSelectCountries(id){
         setInput({
             ...input,
-            countries: [...input.countries, id.target.value]
+            countries: [...new Set([...input.countries, id.target.value])]
+            //new Set para que no se almacenen repetidos
         })
-        setErrors(validation({
+        
+    }
+
+    function handleDeleteCountry(e){
+        setInput({
             ...input,
-            [e.target.name]: e.target.value
-        }))
+            countries: input.countries.filter((c)=> c !== e)
+        })
     }
 
      function handleSubmit(e){
         e.preventDefault();
 
-        setErrors(validation({
-            ...input,
-            [e.target.name]: e.target.value
-        }))
+        let namesNoRepeat= listActivities.filter((activity)=> activity.name === input.name)
+       
+        if(namesNoRepeat.length){
+            alert('There is already an activity with that name')
+            errors.name = 'There is already an activity with that name'
+        
+        } else {
+            let error= Object.keys(validation(input))
 
-        if(!Object.keys(errors).length && input.name && input.difficulty  && input.duration && input.countries){ 
+            if(error.length || !input.countries.length || !input.difficulty.length ){
+                alert('Falta completar datos')
+                
+            
+            }else{
+                dispatch(postActivity(input))
+                alert('Activity created')
 
+                setInput({
+                    name:'',
+                    difficulty: '',
+                    duration: '',
+                    seasson: '',
+                    countries: []
+        
+                })
+                navigate('/countries')
+             
+            }
 
-        dispatch(postActivity(input))
-        alert('Activity created')
+    } 
+}
 
-        setInput({
-            name:'',
-            difficulty: '',
-            duration: '',
-            seasson: '',
-            countries: []
-
-        })
-     }else{
-        alert ('Activity not created')
-     }
-    }
+const seasson = ['Winter', 'Spring', 'Autumn', 'Summer']
+const difficulty = [1, 2, 3, 4, 5]
+const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
     
-     let selectedCountries= input.countries.map((i) =>
+    /* 
+    let selectedCountries= input.countries.map((i) =>
          i)
     const noRepeat= new Set(selectedCountries)
     let result= [...noRepeat];
-
-   
+    */
+   if(carga){
+    return (
+        <div>
+            <Loader/>
+        </div>
+    )
+   }
 
     return (
       <div className="containerCreate">
@@ -134,6 +171,7 @@ const Create = () =>{
 
              <form className="form" onSubmit={(e)=> handleSubmit(e)} >
                 <div>
+                    <label>Activity: </label>
                     <input 
                     className="inputCreate"
                     type="text" 
@@ -149,82 +187,86 @@ const Create = () =>{
                     }
                 </div>
                 <div>
-                    <input 
-                    className="inputCreate"
-                    type="text" 
-                    placeholder="Difficulty"
-                    name= 'difficulty'
-                    value= {input.difficulty}
-                    onChange={(e)=> handleChange(e)}
-                     />
-                     {
-                        errors.difficulty && (
-                            <p>{errors.difficulty}</p>
-                        )
-                     }
-                </div>
-                <div>
-                    <input 
-                    type="text"
-                    placeholder="Duration" 
-                    name="duration"
-                    value={input.duration}
-                    onChange={(e)=> handleChange(e)}
-                    />
-                    {
-                        errors.duration && (
-                            <p>{errors.duration}</p>
-                        )
+                    <label>Difficulty: </label>
+                    <select onChange={(e)=> handleSelectDifficulty(e)}>
+                        <option value="">Choose an option</option>
+                        {
+                            difficulty.map(e => (
+                                <option value={e} name= 'difficulty'>{e}</option>
+                            ))
+                        }
 
-                    }
+                    </select>
+                     
                 </div>
                 <div>
-                    <input 
-                    type="text"
-                    placeholder="Seasson" 
-                    name="seasson"
-                    value={input.seasson}
-                    onChange={(e)=> handleChange(e)}
-                    />
+                    <label>Duration: </label>
+                    <select onChange={(e)=> handleSelectDuration(e)}>
+                        <option value="">Choose an option</option>
+                        {
+                            duration.map(e => (
+                                <option value={e} name= 'duration'>{e}</option>
+                            ))
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <label>Seasson: </label>
+                    <select onChange={(e)=> handleSelectSeasson(e)}>
+                        <option value="">Select seasson</option>
+                        {
+                            seasson.map(e=> (
+                                <option value={e} name= 'seasson' key={e}>{e}</option>
+                            ))
+                        }
+                    </select>
                 </div>
                 <div>
                     <label>Country: </label>
-                    <select onChange={handleSelectCountries}>
+                    <select onChange={(event)=> handleSelectCountries(event)}>
                         <option value="">Select country</option>
+                        
                         {
-                            countries.map( e=> (
+                            countries?.map( e => (
                                 <option value={e.id} name= 'countries' key={e.id}>{e.name}</option>
                             ))
                         }
                     </select>
-                    {
-                        errors.countries && (
-                            <p>{errors.countries}</p>
-                        )
-                    }
+
+                    
                 </div>
-                <div>
-                    <ul>
-                        <li>
-                          {
-                          result.map(i => 
-                          <div>
-                            {i}
-                          </div> )
+                <div className="selected">
+                    
+                          {input.countries.map((i) => (
+                          <div key={i}>
+                            <p>{i}</p>
+                            <button 
+                            onClick={()=> handleDeleteCountry(i)}
+                            key= {i.id}
+                            id= {i.id}
+                            value= {i.name}
+                            >
+                             <span>X</span>
+                            </button>
+                          </div> ))
                           }
-                            
-                            </li>
-                    </ul>
+                    
                 </div>
 
-                <div>
-                    <button 
-                    className="buttonForm"
-                    type="submit">
-                        Add Activity
-                    </button>
-                </div>
-           
+                {
+                    Object.keys(errors).length? (
+                        <div>
+                            <input type="submit" disabled name="Send" />
+                        </div>
+
+                    ) : (
+                        <div>
+                            <input type="submit" name="Send" />
+                        </div>
+                    )
+                }
+
              </form>
             </div>
 
