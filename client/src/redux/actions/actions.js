@@ -48,12 +48,19 @@ export function getDetail(id){
     }
 }
 
+export function byAlphabeticalOrder(payload){
+    return {
+        type: 'BY_ALPHABETICAL_ORDER',
+        payload
+    }
+
+}
+
 export function postActivity(payload){
     return async function(dispatch){
         const response= await axios.post('http://localhost:3001/activities', payload);
         return response;
     }
-
 }
 
 export function getActivity(){
@@ -84,3 +91,4 @@ export function deleteActivity(id){
         }
     }
 }
+

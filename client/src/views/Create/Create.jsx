@@ -116,7 +116,7 @@ const Create = () =>{
         } else {
             let error= Object.keys(validation(input))
 
-            if(error.length || !input.countries.length || !input.difficulty.length ){
+            if(error.length || !input.countries.length || !input.difficulty.length || !input.seasson.length ){
                 alert('Falta completar datos')
                 
             
@@ -139,7 +139,7 @@ const Create = () =>{
     } 
 }
 
-const seasson = ['Winter', 'Spring', 'Autumn', 'Summer']
+const seasson = ["Summer", "Autumn", "Winter", "Spring"]
 const difficulty = [1, 2, 3, 4, 5]
 const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
     
@@ -217,7 +217,7 @@ const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                         <option value="">Select seasson</option>
                         {
                             seasson.map(e=> (
-                                <option value={e} name= 'seasson' key={e}>{e}</option>
+                                <option value={e} name='seasson'>{e}</option>
                             ))
                         }
                     </select>

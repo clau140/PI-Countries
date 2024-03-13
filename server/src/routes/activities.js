@@ -1,14 +1,15 @@
 const { Router } = require("express")
-
+const {Country, Activity} = require('../db')
 const {createActivity, getAllActivities, removeActivity} = require("../controllers/activities")
 
 const router = Router();
 
 //POST /activities
 
+/*
 router.post('/', async (req, res)=>{
     try {
-        const {name, difficulty, duration, seasson } = req.body
+        const {name, difficulty, duration, seasson, countries} = req.body
 
         if(!name || !difficulty || !duration ){
             res.status(404).send('Must complete all required fields')
@@ -21,7 +22,39 @@ router.post('/', async (req, res)=>{
     }
 
 })
+*/
+router.post('/', async (req, res, next) => {
 
+    const {
+        name,
+        difficulty,
+        duration,
+        seasson,
+        countries
+    } = req.body;
+
+    try {
+        let activity = await Activity.create({ name, difficulty, duration, seasson })
+        await activity.setCountries(countries)
+
+        let activityWithCountry = await Activity.findOne({
+            where: { name: name },
+            attributes: {
+                exclude: ['updatedAt', 'createdAt'],
+            },
+            include: {
+                model: Country,
+                through: {
+                    attributes: []
+                }
+            }
+        })
+        res.json(activityWithCountry)
+    } catch (error) {
+        next(error)
+    }
+
+});
 //GET /activities
 
 router.get('/', async (req, res) => {

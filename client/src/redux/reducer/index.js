@@ -25,7 +25,33 @@ const rootReducer = (state = initialState, action) => {
           detail: action.payload
         }
       }
-      
+      case 'BY_ALPHABETICAL_ORDER': {
+
+        const orderCountries = action.payload === 'Asc' ?
+        state.allCountries.sort((a, b)=>{
+          if(a.name > b.name){
+            return 1;
+          }
+          if(b.name > a.name){
+            return -1;
+          }
+          return 0;
+        }) :
+
+        state.allCountries.sort((a,b)=>{
+          if(a.name > b.name){
+            return -1
+          }
+          if(b.name > a.name){
+            return 1
+          }return 0;
+        })
+
+        return {
+          ...state,
+          allCountries: orderCountries
+        }
+      }
       case 'GET_ACTIVITY': {
         return {
           ...state,
