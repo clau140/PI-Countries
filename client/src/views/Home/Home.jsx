@@ -5,6 +5,7 @@ import {getCountries, getActivity, byAlphabeticalOrder, byPopulationOrder} from 
 import Card from '../../components/card/Card'
 import SearchBar from "../../components/searchBar/SearchBar";
 import Loader from '../../components/loader/Loader'
+import './home.css'
 
 export default function Home () {
 
@@ -33,7 +34,7 @@ export default function Home () {
     }
 
     return (
-        <div className="container">
+        <div className="containerHome">
             <div>
                 <button><Link to={'/create'}>Create activity</Link></button>
             </div>

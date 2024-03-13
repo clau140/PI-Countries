@@ -30,9 +30,9 @@ function Card({flagImage, name, continent, id}){
     //const {name, image, id, temperament, weight} = dog
     return(
 
-        <div className='card-container'>
+        <div className='cardContainer'>
             <Link to={'/countries/' + id}>
-                <img className='card_image' src={flagImage} alt= 'img not found' />
+                <img className='cardImage' src={flagImage} alt= 'img not found' />
             </Link>
             <h2>{name}</h2>
             <h3>{continent}</h3>

@@ -2,6 +2,7 @@ const initialState = {
     allCountries: [],
     detail: [],
     population: [],
+    allContinents: [],
     allActivities: []
   };
 
@@ -79,6 +80,13 @@ const rootReducer = (state = initialState, action) => {
         return{
           ...state,
           allCountries: orderPopulation
+
+        }
+      }
+      case 'FILTER_BY_CONTINENT': {
+        const allContinents = state.allContinents;
+        return{
+          ...state,
 
         }
       }

@@ -1,0 +1,16 @@
+.containerHome{
+    background-image: url('./2600.jpg');
+    display: absolute;
+    background-size: fill;
+}
+
+.card_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 270px);
+    gap: 30px;
+    padding: 40px;
+    justify-content: center;
+    transition: margin-left 0.3s 0.1s;
+    color: white;
+    
+}
