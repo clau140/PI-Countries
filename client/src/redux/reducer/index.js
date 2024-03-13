@@ -1,6 +1,7 @@
 const initialState = {
     allCountries: [],
     detail: [],
+    population: [],
     allActivities: []
   };
 
@@ -50,6 +51,35 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
           allCountries: orderCountries
+        }
+      }
+      case 'BY_POPULATION_ORDER': {
+
+        const orderPopulation= action.payload === 'Min'?
+        state.allCountries.sort((a, b)=>{
+          if(a.population > b.population){
+            return 1;
+          }
+          if(b.population > a.population){
+            return -1;
+          }
+          return 0;
+        }) :
+        state.allCountries.sort((a, b)=>{
+          if(a.population > b.population){
+            return -1;
+          }
+          if(b.population > a.population){
+            return 1;
+          }
+          return 0;
+
+        })
+
+        return{
+          ...state,
+          allCountries: orderPopulation
+
         }
       }
       case 'GET_ACTIVITY': {

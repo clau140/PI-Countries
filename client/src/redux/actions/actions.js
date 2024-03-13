@@ -56,6 +56,21 @@ export function byAlphabeticalOrder(payload){
 
 }
 
+export function byPopulationOrder(payload){
+    return{
+        type: 'BY_POPULATION_ORDER',
+        payload
+    }
+}
+
+export function filterByContinent(payload){
+    return{
+        type: 'FILTER_BY_CONTINENT',
+        payload
+
+    }
+}
+
 export function postActivity(payload){
     return async function(dispatch){
         const response= await axios.post('http://localhost:3001/activities', payload);

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import {getCountries, getActivity, byAlphabeticalOrder} from '../../redux/actions/actions'
+import {getCountries, getActivity, byAlphabeticalOrder, byPopulationOrder} from '../../redux/actions/actions'
 import Card from '../../components/card/Card'
 import SearchBar from "../../components/searchBar/SearchBar";
 import Loader from '../../components/loader/Loader'
@@ -22,6 +22,12 @@ export default function Home () {
         setOrder(e.target.value)
     }
 
+    function handleOrderPopulation(e){
+        e.preventDefault();
+        dispatch(byPopulationOrder(e.target.value))
+        setOrder(e.target.value)
+    }
+
     if(!allCountries.length){
         return <Loader/>
     }
@@ -37,6 +43,12 @@ export default function Home () {
                 <select onChange={(e)=> handleOrder(e)}>
                     <option value="Asc" key='Asc'>A-Z</option>
                     <option value="Desc" key='Desc'>Z-A</option>
+                </select>
+             </div>
+             <div>
+                <select onChange={(e)=> handleOrderPopulation(e)}>
+                    <option value="Min" key='Min'>Min population</option>
+                    <option value="Max" key='Max'>Max population</option>
                 </select>
              </div>
             <div>
