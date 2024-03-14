@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import {getCountries, getActivity, byAlphabeticalOrder, byPopulationOrder} from '../../redux/actions/actions'
+import {getCountries, getActivity, byAlphabeticalOrder, byPopulationOrder, filterByContinent} from '../../redux/actions/actions'
 import Card from '../../components/card/Card'
 import SearchBar from "../../components/searchBar/SearchBar";
 import Loader from '../../components/loader/Loader'
@@ -11,8 +11,8 @@ export default function Home () {
 
     const dispatch = useDispatch();
     const [order, setOrder] = useState('')
-    const allCountries = useSelector((state)=> state.allCountries)
-
+    const allCountries = useSelector((state)=> state.countries)
+    
     useEffect(()=>{
         dispatch(getCountries())
     }, [dispatch]);
@@ -27,6 +27,12 @@ export default function Home () {
         e.preventDefault();
         dispatch(byPopulationOrder(e.target.value))
         setOrder(e.target.value)
+    }
+
+    function handleFilterByContinents(e){
+        e.preventDefault();
+        dispatch(filterByContinent(e.target.value))
+        //setOrder(e.target.value)
     }
 
     if(!allCountries.length){
@@ -50,6 +56,17 @@ export default function Home () {
                 <select onChange={(e)=> handleOrderPopulation(e)}>
                     <option value="Min" key='Min'>Min population</option>
                     <option value="Max" key='Max'>Max population</option>
+                </select>
+             </div>
+             <div>
+                <select onChange={(e)=> handleFilterByContinents(e)}>
+                <option value="All">All Continents</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
+                <option value="Antarctic">Antarctic</option>
+                <option value="Asia">Asia</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
                 </select>
              </div>
             <div>

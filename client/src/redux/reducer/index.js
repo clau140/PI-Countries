@@ -1,8 +1,7 @@
 const initialState = {
     allCountries: [],
+    countries: [],
     detail: [],
-    population: [],
-    allContinents: [],
     allActivities: []
   };
 
@@ -11,13 +10,14 @@ const rootReducer = (state = initialState, action) => {
       case 'GET_COUNTRIES': {
         return {
           ...state,
+          countries: action.payload,
           allCountries: action.payload,
         };
       }
       case 'GET_NAME': {
         return {
           ...state,
-          allCountries: action.payload
+          countries: action.payload
         }
       }
       
@@ -30,7 +30,7 @@ const rootReducer = (state = initialState, action) => {
       case 'BY_ALPHABETICAL_ORDER': {
 
         const orderCountries = action.payload === 'Asc' ?
-        state.allCountries.sort((a, b)=>{
+        state.countries.sort((a, b)=>{
           if(a.name > b.name){
             return 1;
           }
@@ -40,7 +40,7 @@ const rootReducer = (state = initialState, action) => {
           return 0;
         }) :
 
-        state.allCountries.sort((a,b)=>{
+        state.countries.sort((a,b)=>{
           if(a.name > b.name){
             return -1
           }
@@ -51,13 +51,13 @@ const rootReducer = (state = initialState, action) => {
 
         return {
           ...state,
-          allCountries: orderCountries
+          countries: orderCountries
         }
       }
       case 'BY_POPULATION_ORDER': {
 
         const orderPopulation= action.payload === 'Min'?
-        state.allCountries.sort((a, b)=>{
+        state.countries.sort((a, b)=>{
           if(a.population > b.population){
             return 1;
           }
@@ -66,7 +66,7 @@ const rootReducer = (state = initialState, action) => {
           }
           return 0;
         }) :
-        state.allCountries.sort((a, b)=>{
+        state.countries.sort((a, b)=>{
           if(a.population > b.population){
             return -1;
           }
@@ -79,16 +79,23 @@ const rootReducer = (state = initialState, action) => {
 
         return{
           ...state,
-          allCountries: orderPopulation
+          countries: orderPopulation
 
         }
       }
       case 'FILTER_BY_CONTINENT': {
-        const allContinents = state.allContinents;
+        const allCountries = state.allCountries;
+        const filterContinent= action.payload === 'All'?
+        allCountries :
+        allCountries.filter(e => e.continent === action.payload)
+       
+
         return{
           ...state,
-
+          countries: filterContinent
+          
         }
+        
       }
       case 'GET_ACTIVITY': {
         return {
