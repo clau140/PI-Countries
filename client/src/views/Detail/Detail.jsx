@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { getDetail } from "../../redux/actions/actions";
+import Loader from '../../components/loader/Loader'
+import './detail.css'
+
 export default function Detail () {
 
     const dispatch = useDispatch();
@@ -17,7 +20,7 @@ export default function Detail () {
 
     
     return (
-        <div className="container">
+        <div className="containerDetail">
             <div className="detail">
 
                 <div>
@@ -25,16 +28,20 @@ export default function Detail () {
                         <Link to={'/countries'}>Home</Link>
                     </button>
                 </div>
+                
                 <div>
-                    {
-                        <img src={detail.flagImage} alt={detail.name} />
-                    }
-                </div>
                 <div>
-                    <div>
-                        <h1>{detail.name}</h1>
+                    
+                    <h1>{detail.name}</h1>
+                    <div className="flag">
+                {
+                    <img src={detail.flagImage} alt={detail.name} />
+                }
+            </div>
+                    
                     </div>
-                    <div>
+                    <div className="info">
+                        <h3>Country code: {detail.id}</h3>
                         <h3>Continent: {detail.continent}</h3>
                         <h3>Capital: {detail.capital}</h3>
                         {
@@ -43,16 +50,33 @@ export default function Detail () {
                         }
                         
                         {
-                            detail.area? <h3>Area: {detail.area}</h3>
+                            detail.area? <h3>Area: {detail.area} km2</h3>
                             : <div></div>
                         }
                         <h3>Population: {detail.population}</h3>
+                        
+                        <div className="activities">
+                <strong>Turist Activities </strong>
+                {
+                    detail.activities && detail.activities.length ?
+                    detail.activities.map(
+                        (a)=> (
+                            <div>
+                                <p><strong>{a.name}</strong> Difficulty: {a.difficulty}, Duration: {a.duration} hs., Seasson: {a.seasson}</p>
+                            </div>
+                        )
+                    ) :
+                    <div>No activities to show</div>
+                }
+
+            </div>
                     </div>
                 </div>
                 
+
            
             </div>
-
+            
         </div>
     )
 

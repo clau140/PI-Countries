@@ -55,6 +55,7 @@ export default function Home () {
         e.preventDefault();
         dispatch(filterByContinent(e.target.value))
         setOrder(e.target.value)
+        setCurrentPage(1)
     }
 
     

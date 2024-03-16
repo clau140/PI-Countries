@@ -6,7 +6,7 @@ const getAllCountries = async ()=>{
     return await Country.findAll({
         include: 
             { model: Activity,
-              attributes: ['name'],
+             // attributes: ['name'],
               through: {
                 attributes: [],
               }

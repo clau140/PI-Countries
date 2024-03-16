@@ -1,8 +1,8 @@
 .cardContainer{
     display: flex;
     flex-direction: column;
-    background: linear-gradient(rgba(61, 53, 73, 0.897), rgba(74, 39, 145, 0.726));
-    border: 1px solid rgb(156, 150, 150);
+    background: linear-gradient(rgba(53, 58, 73, 0.897), rgba(39, 46, 145, 0.726));
+    border: 1px solid rgb(122, 112, 167);
     border-radius: 15px;
     padding: 17px;
     
@@ -16,13 +16,13 @@
 
 .cardContainer:hover{
     transform: scale(1.05);
-    border: 2px double rgb(95, 81, 133);
+    border: 2px double rgb(102, 104, 133);
       transition: all 2s, ease;
 }
 
 .cardImage{
     border-radius: 10px;
-    border: rgb(147, 112, 160) 3px solid ;
+    border: rgb(74, 65, 194) 3px solid ;
     width: 230px;
     height:190px;
     background-color: transparent;

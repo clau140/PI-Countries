@@ -1,0 +1,10 @@
+.containerCreate{
+    background-image: url('./pngtree-blue-tech-line-background-promotion-banner-picture-image_1109273.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    color: aliceblue;
+    
+    background-color: darkgray;
+}
