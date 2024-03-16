@@ -4,19 +4,41 @@ import { Link } from 'react-router-dom'
 import {getCountries, getActivity, byAlphabeticalOrder, byPopulationOrder, filterByContinent} from '../../redux/actions/actions'
 import Card from '../../components/card/Card'
 import SearchBar from "../../components/searchBar/SearchBar";
+import Pagination from "../../components/pagination/Pagination";
 import Loader from '../../components/loader/Loader'
 import './home.css'
 
 export default function Home () {
 
     const dispatch = useDispatch();
-    const [order, setOrder] = useState('')
     const allCountries = useSelector((state)=> state.countries)
+   // const activity= useSelector((state)=> state.activity)
+
+    // Pagina actual 
+    const [currentPage, setCurrentPage] = useState(1)
+    // Cantidad de paises por pagina
+    const [countriesPage, setCountriesPage] = useState(10)
+
+    const [order, setOrder] = useState('')
+
+    //Posicion del ultimo pais
+    const LastCountry = currentPage * countriesPage
+    //Posicion del primer pais
+    const FirstCountry = LastCountry - countriesPage
+    // Se divide el array de acuerdo a la cantidad de paises necesarios (9)
+    const currentCountries = allCountries.slice(FirstCountry, LastCountry)
+
+    const pagination = (totalPages)=>{
+        setCurrentPage(totalPages);
+    }
+    
     
     useEffect(()=>{
         dispatch(getCountries())
+        
     }, [dispatch]);
 
+    
     function handleOrder(e){
         e.preventDefault();
         dispatch(byAlphabeticalOrder(e.target.value))
@@ -32,8 +54,14 @@ export default function Home () {
     function handleFilterByContinents(e){
         e.preventDefault();
         dispatch(filterByContinent(e.target.value))
-        //setOrder(e.target.value)
+        setOrder(e.target.value)
     }
+
+    
+
+    useEffect(() => {
+        dispatch(getActivity())
+    }, [dispatch]) 
 
     if(!allCountries.length){
         return <Loader/>
@@ -69,10 +97,17 @@ export default function Home () {
                 <option value="Oceania">Oceania</option>
                 </select>
              </div>
-            <div>
 
+            
+             
+
+
+              {/* Se hace el map sobre el nuevo array de countries, para renderizar solo los 
+            necesarios por pagina */}
+            <div>
+           
             <ul className='card_grid'>
-            {allCountries?.map((el) => {
+            {currentCountries?.map((el) => {
                 return (
                 
                      <Card
@@ -88,6 +123,12 @@ export default function Home () {
          </ul>
             </div>
             </div>
+            <Pagination 
+                countriesPage={countriesPage}
+                allCountries={allCountries.length}
+                pagination={pagination}
+                currentPage={currentPage}
+            />
 
         </div>
     )

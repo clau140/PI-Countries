@@ -33,7 +33,7 @@ const Create = () =>{
         return 0
     })
 
-    const listActivities = useSelector((state) => state.allActivities)
+    const listActivities = useSelector((state) => state.activity)
     
     const [carga, setCarga]= useState(true)
     
@@ -107,7 +107,10 @@ const Create = () =>{
      function handleSubmit(e){
         e.preventDefault();
 
+        //let namesNoRepeat= listActivities.filter((activity)=> activity.name === input.name)
+
         let namesNoRepeat= listActivities.filter((activity)=> activity.name === input.name)
+        
        
         if(namesNoRepeat.length){
             alert('There is already an activity with that name')
@@ -116,7 +119,7 @@ const Create = () =>{
         } else {
             let error= Object.keys(validation(input))
 
-            if(error.length || !input.countries.length || !input.difficulty.length || !input.seasson.length ){
+            if(error.length || !input.countries.length || !input.difficulty.length || !input.seasson.length || !input.duration.length){
                 alert('Falta completar datos')
                 
             

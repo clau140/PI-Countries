@@ -78,6 +78,15 @@ export function postActivity(payload){
     }
 }
 
+//FILTRAR POR TIPO DE ACTIVIDAD TURISTICA
+export function filterByActivity(payload){
+    return{
+        type: 'FILTER_BY_ACTIVITY',
+        payload
+    }
+
+} 
+
 export function getActivity(){
     return async (dispatch)=>{
         try {
@@ -93,6 +102,7 @@ export function getActivity(){
     }
 }
 
+
 export function deleteActivity(id){
     return async (dispatch)=>{
         try {
@@ -107,3 +117,18 @@ export function deleteActivity(id){
     }
 }
 
+/*export const getCountriesByA = (id) => {
+    return async (dispatch) => {
+      try {
+        const data = await getCountriesByActivity(id);
+        return dispatch({
+          type: 'GET_RELATION',
+          payload: data,
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+  };
+
+*/

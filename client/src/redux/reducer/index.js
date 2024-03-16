@@ -2,7 +2,8 @@ const initialState = {
     allCountries: [],
     countries: [],
     detail: [],
-    allActivities: []
+    allActivities: [],
+    activity: []
   };
 
 const rootReducer = (state = initialState, action) => {
@@ -12,6 +13,8 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           countries: action.payload,
           allCountries: action.payload,
+          allActivities: action.payload
+
         };
       }
       case 'GET_NAME': {
@@ -100,7 +103,8 @@ const rootReducer = (state = initialState, action) => {
       case 'GET_ACTIVITY': {
         return {
           ...state,
-          allActivities: action.payload
+          activity: action.payload,
+          
 
         }
       }
@@ -108,6 +112,13 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
         }
+        case 'FILTER_BY_ACTIVITY':
+          
+          return{
+            ...state,
+            
+            
+          }
       case 'DELETE_ACTIVITY':
         return{
           ...state,

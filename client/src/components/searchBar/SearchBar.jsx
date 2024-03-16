@@ -5,7 +5,7 @@ import './searchBar.css'
 
 function SearchBar (){
 
-    const dispatch= useDispatch();
+    const dispatch = useDispatch();
     const [name, setName]= useState('')
 
     function handleInputChange(e){
