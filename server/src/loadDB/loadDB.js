@@ -15,6 +15,7 @@ const loadDb = async ()=>{
                 name: country.name.common,                              
                 flagImage: country.flags.png,
                 continent: country.region,
+                
                 capital: country.capital?.[0] ?? 'Unknown capital',
                 subregion: country.subregion,
                 area: country.area,

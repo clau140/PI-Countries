@@ -21,21 +21,22 @@ export default function Detail () {
     
     return (
         <div className="containerDetail">
-            <div className="detail">
+            
 
-                <div>
-                    <button>
-                        <Link to={'/countries'}>Home</Link>
-                    </button>
+                <div className="containerButtonDetail">
+                    
+                        <Link to={'/countries'} className="buttonDetail">Home</Link>
+                    
                 </div>
                 
-                <div>
+                <div className="containerInfo">
+                    <div className="cardInfo">
                 <div>
                     
                     <h1>{detail.name}</h1>
                     <div className="flag">
                 {
-                    <img src={detail.flagImage} alt={detail.name} />
+                    <img className="imgFlag" src={detail.flagImage} alt={detail.name} />
                 }
             </div>
                     
@@ -74,10 +75,10 @@ export default function Detail () {
                 </div>
                 
 
-           
+                </div>
             </div>
             
-        </div>
+        
     )
 
 }

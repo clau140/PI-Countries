@@ -1,40 +1,56 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux'
 import { getName } from '../../redux/actions/actions';
+
 import './searchBar.css'
 
-function SearchBar (){
+function SearchBar ({setCurrentPage} ){
 
     const dispatch = useDispatch();
+   
     const [name, setName]= useState('')
-
+   
     function handleInputChange(e){
-        e.preventDefault();
+        e.preventDefault(); 
         setName(e.target.value)
+       
     }
 
     function handleSubmit(e){
         e.preventDefault();
-        if(!name.length){
+       
+
+       if(!name.length){
             alert('Please enter a country')
-        }else{
-            dispatch(getName(name))
-            setName('')
+        
         }
+        else{
+            dispatch(getName(name))
+            setCurrentPage(1)
+            setName('')
+
+        } 
 
     }
     return (
-        <div>
+        <div className='wrap'>
             <form onSubmit={(e)=>handleSubmit(e)} >
+                <div className='search'>
+                    
                 <input 
-                className='input'
+                className='searchTerm'
                 type="text"
                 value= {name}
                 placeholder='Search country'
                 onChange={(e)=> handleInputChange(e)}
                  />
-                 <button className='buttonSearch' type='submit'>🔎</button>
-
+                 
+                 <button className='searchButton' type='submit'
+                 
+                 >🔍</button>
+                 
+                 
+                </div>
             </form>
         </div>
     )

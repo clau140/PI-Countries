@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
-import {getCountries, getActivity, byAlphabeticalOrder, byPopulationOrder, filterByContinent} from '../../redux/actions/actions'
+import {getCountries ,getActivity, byAlphabeticalOrder, byPopulationOrder, filterByContinent, filterByActivity} from '../../redux/actions/actions'
 import Card from '../../components/card/Card'
 import SearchBar from "../../components/searchBar/SearchBar";
 import Pagination from "../../components/pagination/Pagination";
@@ -12,7 +12,13 @@ export default function Home () {
 
     const dispatch = useDispatch();
     const allCountries = useSelector((state)=> state.countries)
-   // const activity= useSelector((state)=> state.activity)
+   
+    const allActivities= useSelector((state)=> state.allActivities)
+
+    const activities = [];
+    allActivities.map(
+        a => !activities.includes(a.name) && activities.push(a.name)
+    ); 
 
     // Pagina actual 
     const [currentPage, setCurrentPage] = useState(1)
@@ -21,11 +27,12 @@ export default function Home () {
 
     const [order, setOrder] = useState('')
 
+
     //Posicion del ultimo pais
     const LastCountry = currentPage * countriesPage
     //Posicion del primer pais
     const FirstCountry = LastCountry - countriesPage
-    // Se divide el array de acuerdo a la cantidad de paises necesarios (9)
+    // Se divide el array de acuerdo a la cantidad de paises necesarios (10)
     const currentCountries = allCountries.slice(FirstCountry, LastCountry)
 
     const pagination = (totalPages)=>{
@@ -35,6 +42,8 @@ export default function Home () {
     
     useEffect(()=>{
         dispatch(getCountries())
+        dispatch(getActivity())
+        
         
     }, [dispatch]);
 
@@ -43,12 +52,14 @@ export default function Home () {
         e.preventDefault();
         dispatch(byAlphabeticalOrder(e.target.value))
         setOrder(e.target.value)
+        setCurrentPage(1)
     }
 
     function handleOrderPopulation(e){
         e.preventDefault();
         dispatch(byPopulationOrder(e.target.value))
         setOrder(e.target.value)
+        setCurrentPage(1)
     }
 
     function handleFilterByContinents(e){
@@ -58,36 +69,59 @@ export default function Home () {
         setCurrentPage(1)
     }
 
+    function handleFilterActivity(e){
+        e.preventDefault();
+        dispatch(filterByActivity(e.target.value))
+        setOrder(e.target.value)
+        setCurrentPage(1)
+    }
+
+   
+    function handleClick(e){ 
+        e.preventDefault();
+        dispatch(getCountries()); 
+        dispatch(filterByContinent())
+        setCurrentPage(1)
+    }
+
+ 
     
-
-    useEffect(() => {
-        dispatch(getActivity())
-    }, [dispatch]) 
-
     if(!allCountries.length){
         return <Loader/>
     }
 
     return (
         <div className="containerHome">
-            <div>
-                <button><Link to={'/create'}>Create activity</Link></button>
+            <div className="containerButtonCreate">
+
+                <Link className="buttonHome" to={'/create'}>Create activity</Link>
             </div>
+            <div className='containerReload'>
+         <button className='buttonHome' onClick={e=> {handleClick(e)}}>Reload</button>
+         </div>
             <div>
-             <SearchBar/>
-             <div>
-                <select onChange={(e)=> handleOrder(e)}>
+
+            <div>
+                <SearchBar setCurrentPage={setCurrentPage}/> 
+           
+        </div>
+             
+            <div className="containerFilters">
+             <div className="select">
+                <select onChange={(e)=> handleOrder(e)}  >
+                    <option value="" disabled hidden>Order alphabetically</option>
                     <option value="Asc" key='Asc'>A-Z</option>
                     <option value="Desc" key='Desc'>Z-A</option>
                 </select>
              </div>
-             <div>
+             <div className="select">
                 <select onChange={(e)=> handleOrderPopulation(e)}>
+                    <option value="" disabled hidden>Order population</option>
                     <option value="Min" key='Min'>Min population</option>
                     <option value="Max" key='Max'>Max population</option>
                 </select>
              </div>
-             <div>
+             <div className="select">
                 <select onChange={(e)=> handleFilterByContinents(e)}>
                 <option value="All">All Continents</option>
                 <option value="Africa">Africa</option>
@@ -98,6 +132,20 @@ export default function Home () {
                 <option value="Oceania">Oceania</option>
                 </select>
              </div>
+
+               {/* FILTRO POR ACTIVIDAD TURISTICA */}
+              {
+                <div className="select">
+                
+                <select onChange={e => handleFilterActivity(e)} >
+                    <option value="All">All activities</option>
+                    {activities && activities.map((activity) => (
+                        <option  value={activity.id}>{activity}</option>
+                    ))}
+                </select>
+            </div>
+              }
+              </div>
 
             
              

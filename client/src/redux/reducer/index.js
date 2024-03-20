@@ -3,17 +3,23 @@ const initialState = {
     countries: [],
     detail: [],
     allActivities: [],
-    activity: []
+    activity:[],
+    //currentPage: 1,
+    //continent: 'All',
+    //activity: 'All',
   };
 
 const rootReducer = (state = initialState, action) => {
+  const countriescopy = state.allCountries;
     switch (action.type) {
       case 'GET_COUNTRIES': {
         return {
           ...state,
           countries: action.payload,
           allCountries: action.payload,
-          allActivities: action.payload
+          
+          
+          
 
         };
       }
@@ -87,6 +93,7 @@ const rootReducer = (state = initialState, action) => {
         }
       }
       case 'FILTER_BY_CONTINENT': {
+        
         const allCountries = state.allCountries;
         const filterContinent= action.payload === 'All'?
         allCountries :
@@ -99,30 +106,49 @@ const rootReducer = (state = initialState, action) => {
           
         }
         
-      }
+      } 
+
       case 'GET_ACTIVITY': {
         return {
           ...state,
-          activity: action.payload,
+          allActivities: action.payload,
+          activity: action.payload
+          
           
 
         }
       }
+        
+    case 'FILTER_BY_ACTIVITY': {
+
+           const filterByActivity= action.payload === 'All' ? countriescopy
+           : countriescopy.filter((c) => c.activities.map((ac) => ac.name).includes(action.payload))
+
+        return {
+            ...state,
+            countries: filterByActivity,
+            activity: action.payload,
+            
+        }
+    }
+
+      
       case 'POST_ACTIVITY':
         return {
           ...state,
         }
-        case 'FILTER_BY_ACTIVITY':
-          
-          return{
-            ...state,
-            
-            
-          }
+        
       case 'DELETE_ACTIVITY':
         return{
           ...state,
         }
+
+        case 'SET_PAGE':
+          return {
+              ...state,
+              currentPage: action.payload,
+              
+          };
 
       default:
       return state;

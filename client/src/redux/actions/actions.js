@@ -1,15 +1,28 @@
 import axios from 'axios';
 
 export function getCountries() {
+    
     return async (dispatch)=>{
         const response= await axios.get('http://localhost:3001/countries/')
         dispatch({
             type: 'GET_COUNTRIES',
             payload: response.data
         })
+        
+    }
 
     }
-}
+    
+
+
+/* return async (dispatch)=>{
+    const response= await axios.get('http://localhost:3001/countries/')
+    dispatch({
+        type: 'GET_COUNTRIES',
+        payload: response.data
+    })
+
+} */
 
 export function getName(name){
     return async (dispatch)=>{
@@ -82,7 +95,7 @@ export function postActivity(payload){
 export function filterByActivity(payload){
     return{
         type: 'FILTER_BY_ACTIVITY',
-        payload
+        payload: payload
     }
 
 } 
@@ -116,6 +129,14 @@ export function deleteActivity(id){
         }
     }
 }
+
+export function setCurrentPage(page) {
+    return { 
+        type: 'SET_PAGE', 
+        payload: page 
+        
+        }
+};
 
 /*export const getCountriesByA = (id) => {
     return async (dispatch) => {

@@ -1,4 +1,4 @@
-const axios = require('axios');
+
 const {Country, Activity} = require('../db')
 
 

@@ -1,5 +1,23 @@
+body {
+  background: linear-gradient(rgba(13, 7, 46, 0.747), rgba(21, 11, 65, 0.747)),
+  url("./abstract-background-lighting-shiny-blue-brick-wall-building-wallpaper-backdrop-retro-pattern-seamless-illustration-vector.jpg")
+    center ;
+ background-size: fill;
+ display: absolute;
+ 
+}body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+background:rgba(118, 132, 193, 0.968);
+}
+body::-webkit-scrollbar-thumb {
+background-color: rgba(46, 51, 99, 0.748);
+}
+
 .containerHome{
-    background-image: url('./abstract-background-lighting-shiny-blue-brick-wall-building-wallpaper-backdrop-retro-pattern-seamless-illustration-vector.jpg');
+    
+    
     display: absolute;
     background-size: fill;
 }
@@ -13,4 +31,127 @@
     transition: margin-left 0.3s 0.1s;
     color: white;
     
+}
+
+.containerButtonCreate{
+  justify-content: flex-start;
+  margin: 0px 0px 5px 0px;
+  padding: 10px 0px 0px 0px;
+  
+}
+
+
+
+.containerReload{
+  justify-content: flex-start;
+  margin: 0px 0px 5px 0px;
+  padding: 5px 0px 10px 0px;
+  
+}
+
+.containerFilters {
+  justify-content: flex-start;
+  margin: 20px 0px 0px 0px ;
+  padding: 5px 0px 10px 0px;
+  
+}
+
+
+.buttonHome {
+  background-color: #0078d0;
+  border: 0;
+  border-radius: 20px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  outline: 0;
+  padding: 12px 21px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.buttonHome:before {
+  background-color: initial;
+  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+  border-radius: 125px;
+  content: "";
+  height: 50%;
+  left: 4%;
+  opacity: .5;
+  position: absolute;
+  top: 0;
+  transition: all .3s;
+  width: 92%;
+}
+
+.buttonHome:hover {
+  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+  transform: scale(1.05);
+}
+
+
+
+.select{
+  
+  display: inline-block;
+  
+  padding: 12px 21px;
+  position: relative;
+  text-align: center;
+  
+}
+
+select{
+  background-color: #0078d0;
+  
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+  
+  font-size: 12px;
+  font-weight: 600;
+  outline: 0;
+  padding: 8px 30px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+select:before {
+  background-color: initial;
+  background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+  border-radius: 125px;
+  content: "";
+  height: 50%;
+  left: 4%;
+  opacity: .5;
+  position: absolute;
+  top: 0;
+  transition: all .3s;
+  width: 92%;
+}
+
+select:hover {
+  box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+  transform: scale(1.05);
+}
+
+option{
+  font-size: 12px;
+  
+  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
 }

@@ -1,7 +1,11 @@
 import React from 'react';
 import  './pagination.css'
 
+
 export default function Pagination ({countriesPage, allCountries, pagination, currentPage}) {
+
+    
+
     const pageNumbers = [];
 
         for(let i=1; i<=Math.ceil(allCountries / countriesPage); i++){

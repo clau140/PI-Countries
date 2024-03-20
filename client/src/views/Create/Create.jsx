@@ -51,10 +51,6 @@ const Create = () =>{
         dispatch(getActivity());
     }, [dispatch]);
 
-  /*  useEffect(()=>{
-        dispatch(getActivity())
-    }, [dispatch])
-*/
     function handleChange(e){
         setInput({
             ... input,
@@ -146,12 +142,6 @@ const seasson = ["Summer", "Autumn", "Winter", "Spring"]
 const difficulty = [1, 2, 3, 4, 5]
 const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
     
-    /* 
-    let selectedCountries= input.countries.map((i) =>
-         i)
-    const noRepeat= new Set(selectedCountries)
-    let result= [...noRepeat];
-    */
    if(carga){
     return (
         <div>
@@ -162,18 +152,19 @@ const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
 
     return (
       <div className="containerCreate">
-        <div>
-            <button><Link to={'/countries'}>Home</Link></button>
+        <div className="containerButtonCreate">
+            <Link to={'/countries'} className="buttonCreate">Home</Link>
         </div>
 
        
            <div>
-           <h1 className="titulo">Create a new Activity</h1>
-            
-            <div className="containerForm">
+            <div className="containerTitleCreate">
+           <h1 className="titleCreate">Create a new Activity</h1>
+           </div>
+            <div className="containerFormCreate">
 
              <form className="form" onSubmit={(e)=> handleSubmit(e)} >
-                <div>
+                <div className="formCreate">
                     <label>Activity: </label>
                     <input 
                     className="inputCreate"
@@ -189,10 +180,10 @@ const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                         )
                     }
                 </div>
-                <div>
+                <div className="formCreate">
                     <label>Difficulty: </label>
                     <select onChange={(e)=> handleSelectDifficulty(e)}>
-                        <option value="">Choose an option</option>
+                        <option value="" >Choose an option</option>
                         {
                             difficulty.map(e => (
                                 <option value={e} name= 'difficulty'>{e}</option>
@@ -202,10 +193,10 @@ const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                     </select>
                      
                 </div>
-                <div>
+                <div className="formCreate">
                     <label>Duration: </label>
                     <select onChange={(e)=> handleSelectDuration(e)}>
-                        <option value="">Choose an option</option>
+                        <option value="" >Choose an option</option>
                         {
                             duration.map(e => (
                                 <option value={e} name= 'duration'>{e}</option>
@@ -214,10 +205,10 @@ const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                     </select>
                 </div>
 
-                <div>
+                <div className="formCreate">
                     <label>Seasson: </label>
                     <select onChange={(e)=> handleSelectSeasson(e)}>
-                        <option value="">Select seasson</option>
+                        <option value="" >Select seasson</option>
                         {
                             seasson.map(e=> (
                                 <option value={e} name='seasson'>{e}</option>
@@ -225,10 +216,10 @@ const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
                         }
                     </select>
                 </div>
-                <div>
+                <div className="formCreate">
                     <label>Country: </label>
                     <select onChange={(event)=> handleSelectCountries(event)}>
-                        <option value="">Select country</option>
+                        <option value="" >Select country</option>
                         
                         {
                             countries?.map( e => (
@@ -259,13 +250,16 @@ const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
 
                 {
                     Object.keys(errors).length? (
-                        <div>
-                            <input type="submit" disabled name="Send" />
+                        <div className="containerButtonSend">
+                            <input className="buttonSendDisabled" type="submit" disabled name="Send"
+                            />
+                            
+                            
                         </div>
 
                     ) : (
-                        <div>
-                            <input type="submit" name="Send" />
+                        <div className="containerButtonSend">
+                            <input className="buttonSend" type="submit" name="Send" />
                         </div>
                     )
                 }

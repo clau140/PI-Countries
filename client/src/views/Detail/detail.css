@@ -1,37 +1,100 @@
+
+
 .containerDetail {
-     
-    background: url('./detail.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    color: aliceblue;
-    /* max-width: 100vh */
-    background-color: darkgray;
    
-}
-
-.info {
-    
-    
+ background-image: url(./detail.png);
+ 
+ background-size: fill;
+ display: absolute;
     
    
 }
 
+.containerButtonDetail{
+    justify-content: flex-start;
+  margin: 0px 0px 5px 0px;
+  padding: 10px 0px 0px 0px;
+}
 
+.buttonDetail {
+    background-color: #0078d0;
+    border: 0;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    outline: 0;
+    padding: 12px 21px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .buttonDetail:before {
+    background-color: initial;
+    background-image: linear-gradient(#fff 0, rgba(255, 255, 255, 0) 100%);
+    border-radius: 125px;
+    content: "";
+    height: 50%;
+    left: 4%;
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    transition: all .3s;
+    width: 92%;
+  }
+  
+  .buttonDetail:hover {
+    box-shadow: rgba(255, 255, 255, .2) 0 3px 15px inset, rgba(0, 0, 0, .1) 0 3px 5px, rgba(0, 0, 0, .1) 0 10px 13px;
+    transform: scale(1.05);
+  }
+  
 
-.flag {
-    /*width: 150px;
-    height: 80px;*/
+  .containerInfo{
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(rgba(98, 128, 235, 0.897), rgba(49, 56, 156, 0.726));
+    
+    border: 1px solid rgb(122, 112, 167);
+    border-radius: 15px;
+    padding: 16px;
+    font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+    color: #fff;
+    font-size: 15px;
+    backface-visibility: hidden;
+    margin: 30px;
     
 }
+
+
+
+.imgFlag{
+    border-radius: 15px;
+    border: rgb(74, 65, 194) 3px solid ;
+    margin: 10px
+   
+}  
+
+
+
+
 
 .activities {
+   
     margin: auto;
+    padding: 3px;
     border-radius: 5px;
-    width: 300px;
-    padding: 10px;
+    align-items:  center;
+    width: 450px;
+    
     border: 5px;
-    background-color: lightgray;
-    color: black;
+    background-color: rgb(90, 112, 187);
+    color: rgb(236, 231, 231);
 }
