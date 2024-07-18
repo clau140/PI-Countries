@@ -1,14 +1,17 @@
 const axios = require ('axios');
 const { Country } = require ('../db')
+const  dbJson = require( "../../api/db.json")
 
-
-const getData = async ()=> await axios.get("http://localhost:5000/countries")
+//const getData = async ()=> await axios.get("http://localhost:5000/countries")
 
 const loadDb = async ()=>{
     try{
-        const db = await getData();
-        for (let i = 0; i < db.data.length; i++) {
-            let country = db.data[i];
+        //const db = await getData();
+        const db = dbJson.countries;
+        
+        for (let i = 0; i < db.length; i++) {
+            let country = db[i];
+           // let country = db.data[i];
 
             await Country.create({
                 id: country.cca3,                                        
