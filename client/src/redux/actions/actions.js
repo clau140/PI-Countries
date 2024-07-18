@@ -4,7 +4,7 @@ const URL= 'https://pi-countries-black.vercel.app'
 export function getCountries() {
     
     return async (dispatch)=>{
-        const response= await axios.get(`${URL || localURL}/countries`)
+        const response= await axios.get(`${URL}/countries`)
         dispatch({
             type: 'GET_COUNTRIES',
             payload: response.data
