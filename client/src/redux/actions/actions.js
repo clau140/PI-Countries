@@ -1,6 +1,6 @@
 import axios from 'axios';
 const localURL= "http://localhost:3001"
-const URL= ''
+const URL= 'https://pi-countries-black.vercel.app'
 export function getCountries() {
     
     return async (dispatch)=>{
