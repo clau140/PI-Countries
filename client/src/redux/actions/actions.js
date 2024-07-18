@@ -1,10 +1,10 @@
 import axios from 'axios';
 const localURL= "http://localhost:3001"
-const URL= 'https://pi-countries-black.vercel.app'
+const URL= 'https://pi-countries-black.vercel.app/'
 export function getCountries() {
     
     return async (dispatch)=>{
-        const response= await axios.get(`${URL}/countries`)
+        const response= await axios.get(`${URL}countries`)
         dispatch({
             type: 'GET_COUNTRIES',
             payload: response.data
@@ -19,7 +19,7 @@ export function getName(name){
     return async (dispatch)=>{
         try {
             //const response= await axios.get(`http://localhost:3001/countries?name=${name}`)
-            const response= await axios.get(`${URL || localURL}/countries?name=${name}`)
+            const response= await axios.get(`${URL}countries?name=${name}`)
 
             dispatch({
                 type: 'GET_NAME',
@@ -36,7 +36,7 @@ export function getDetail(id){
         try {
             if(id){
                 //const response = await axios.get(`http://localhost:3001/countries/${id}`);
-                const response = await axios.get(`${URL || localURL}/countries/${id}`);
+                const response = await axios.get(`${URL}countries/${id}`);
                 dispatch({
                     type: 'GET_DETAIL',
                     payload: response.data
@@ -81,7 +81,7 @@ export function postActivity(payload){
     return async function(dispatch){
       
         //const response= await axios.post('http://localhost:3001/activities', payload);
-        const response= await axios.post(`${URL || localURL}/activities`, payload);
+        const response= await axios.post(`${URL}activities`, payload);
         return response;
     }
 }
@@ -99,7 +99,7 @@ export function getActivity(){
     return async (dispatch)=>{
         try {
             //const response= await axios.get('http://localhost:3001/activities')
-            const response= await axios.get(`${URL || localURL}/activities`)
+            const response= await axios.get(`${URL}activities`)
             return dispatch({
                 type: 'GET_ACTIVITY',
                 payload: response.data
@@ -115,7 +115,7 @@ export function getActivity(){
 export function deleteActivity(id){
     return async (dispatch)=>{
         try {
-            return await axios.delete(`${URL || localURL}/activities/${id}`)
+            return await axios.delete(`${URL}activities/${id}`)
             .then( (activity)=> dispatch({
                 type: 'DELETE_ACTIVITY',
                 payload: activity.data
