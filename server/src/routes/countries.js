@@ -1,4 +1,4 @@
-const { Country, Activity } = require('../db');
+//const { Country, Activity } = require('../db');
 const { Router } = require("express")
 
 const {getAllCountries, getById} = require("../controllers/countries")
